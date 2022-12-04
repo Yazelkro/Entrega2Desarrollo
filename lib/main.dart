@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pruebita1/course.dart';
+import 'package:pruebita1/courseSamples.dart';
 
 void main() {
   runApp(const CoursesApp());
@@ -16,7 +18,7 @@ class CoursesApp extends StatelessWidget {
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
           primary: Color.fromARGB(255, 57, 19, 160),
-          secondary: Colors.black
+          secondary: Color.fromARGB(255, 17, 17, 17)
         ),
       ),
       home: const MyHomePage(title: 'Corsi'),
@@ -42,52 +44,17 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+
+
+class _MyHomePageState extends State<MyHomePage> {  
   
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-     
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SafeArea(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text('Listado de Cursos', style: Theme.of(context).textTheme.headline4),
@@ -96,31 +63,43 @@ class _MyHomePageState extends State<MyHomePage> {
               bottom: false,
               child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: 
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: 
                   SizedBox(
                     width: 400,
                     height: 550,
-                    child: Card (
-                      color: Color.fromARGB(255, 240, 255, 255),
-                      elevation: 8.0,
-                      clipBehavior: Clip.hardEdge,
-                      child: 
-                        Column(children: [
-                            Text ('Introduction to the art of Penmanship',style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
-                            const Image(
-                              image: NetworkImage('https://i.pinimg.com/736x/81/2a/53/812a53335e987da4e4810d014b432c21.jpg')
-                            ),
-                            Text('Description: Atarve, eqaye, dratac. Andrastae soitsa, kaz soit vaz sefil')
-                          ]
-                        ),
-                    ),
+                    child: ListView.builder(
+                      itemCount: CourseSamples.samples.length,
+                      itemBuilder: (BuildContext context, int index){
+                        return buildCourseCard(CourseSamples.samples[index]);
+                      }
+                    )
+                  ),
+                ),
               ),
-             ),
-            ),
+            )
           ],
         ),
       ),
-      
+    );
+  }
+
+  @override
+  Widget buildCourseCard(Course course) {
+    return Card(
+      color: Color.fromARGB(255, 240, 255, 255),
+      elevation: 8.0,
+      clipBehavior: Clip.hardEdge,
+      child: 
+        Column(children: <Widget>[
+            Text (course.getTitle().title,style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
+            Image(
+              image: AssetImage(course.getPhoto().photo)
+            ),
+            Text(course.getDescription().description, textAlign: TextAlign.left)
+          ]
+        ),
     );
   }
 }

@@ -9,6 +9,8 @@ class Course {
   late CoursePhoto _coursePhoto;
   late CourseDescription _courseDescription;
 
+  Course(this._courseID,this._courseTitle,this._coursePhoto,this._courseDescription);
+  
   CourseID getID() {
     return this._courseID;
   }
