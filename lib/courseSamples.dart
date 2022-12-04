@@ -10,19 +10,19 @@ import 'courseCreator.dart';
 
 class CourseSamples {
   static List<Course> samples = [
-    CourseCreator.createCourseFrom(CourseInfo(
+    Course.createCourse(CourseInfo(
       "A1",
       "Introduction to Penmanship",
       "assets/penmanship.jpeg",
       "Lorem Ipsum"
     )),
-    CourseCreator.createCourseFrom(CourseInfo(
+    Course.createCourse(CourseInfo(
       "A2",
       "Introduction to Mixology",
       "assets/bartending.jpeg",
       "Lorem Ipsum"
     )),
-    CourseCreator.createCourseFrom(CourseInfo(
+    Course.createCourse(CourseInfo(
       "A3",
       "Introduction to Photography",
       "assets/photographycourse.jpeg",

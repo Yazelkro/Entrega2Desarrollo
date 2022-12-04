@@ -4,6 +4,7 @@ import 'package:pruebita1/courseSamples.dart';
 
 
 
+
 void main() {
   runApp(const CoursesApp());
 }
@@ -86,11 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
       clipBehavior: Clip.hardEdge,
       child: 
         Column(children: <Widget>[
-            Text (course.getTitle().title,style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
+            Text (course.getTitle(),style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
             Image(
-              image: AssetImage(course.getPhoto().photo)
+              image: AssetImage(course.getPhoto())
             ),
-            Text(course.getDescription().description, textAlign: TextAlign.left)
+            Text(course.getDescription(), textAlign: TextAlign.left)
           ]
         ),
     );
