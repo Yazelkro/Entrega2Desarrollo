@@ -2,7 +2,7 @@
 //boceto del aggregate Lesson
 
 import 'lesson_contents/lessonContents.dart';
-import 'lessonInfo.dart';
+import 'network/lessonInfo.dart';
 import 'lessonCreator.dart';
 
 class Lesson {

@@ -4,7 +4,7 @@
 import 'package:pruebita1/courseCreator.dart';
 
 import 'course_contents/courseContents.dart';
-import 'courseInfo.dart';
+import 'network/courseInfo.dart';
 
 class Course {
   late CourseID _courseID;

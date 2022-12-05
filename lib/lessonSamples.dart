@@ -2,52 +2,26 @@
 //es para hacer una prueba para ver si funciona la app con lecciones hardcoded
 //sujeto a cambios, podría tener que ser borrado
 
-import 'lessonInfo.dart';
+import 'network/lessonInfo.dart';
 import 'lesson.dart';
+import 'lesson_services.dart';
 
 class LessonSamples {
   static List<Lesson> samples1 = [
-    Lesson.createLesson(LessonInfo(
-      "A11",
-      "Leccion 1: Basic tools"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A12",
-      "Leccion 2: Types of inks"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A13",
-      "Leccion 3: How to use a stylographic pen"
-    )),
+    loadPen1Course(),
+    loadPen2Course(),
+    loadPen3Course()
   ];
 
   static List<Lesson> samples2 = [
-    Lesson.createLesson(LessonInfo(
-      "A21",
-      "Leccion 1: The bartender's tools"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A22",
-      "Leccion 2: How to make your first Martini"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A23",
-      "Leccion 3: Techniques for a proper stir"
-    )),
+    loadBar1Course(),
+    loadBar2Course(),
+    loadBar3Course()
   ];
 
   static List<Lesson> samples3 = [
-    Lesson.createLesson(LessonInfo(
-      "A31",
-      "Leccion 1: Photography basics"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A32",
-      "Leccion 2: Lenses explained"
-    )),
-    Lesson.createLesson(LessonInfo(
-      "A33",
-      "Leccion 3: How to adjust your ISO"
-    )),
+    loadPhoto1Course(),
+    loadPhoto2Course(),
+    loadPhoto3Course()
   ];
 }

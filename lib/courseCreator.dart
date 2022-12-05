@@ -6,7 +6,7 @@ de momento se deja fuera
 
 import 'course_contents/courseContents.dart';
 import 'course.dart';
-import 'courseInfo.dart';
+import 'network/courseInfo.dart';
 
 class CourseCreator {
   static Course createCourseFrom(CourseInfo courseInfo) {
