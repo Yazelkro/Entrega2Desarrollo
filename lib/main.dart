@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pruebita1/course.dart';
+import 'package:pruebita1/courseDetailSamples.dart';
 import 'package:pruebita1/courseSamples.dart';
+import 'courses_details_page.dart';
 
 
 
@@ -66,7 +68,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ListView.builder(
                       itemCount: CourseSamples.samples.length,
                       itemBuilder: (BuildContext context, int index){
-                        return buildCourseCard(CourseSamples.samples[index]);
+                        return GestureDetector(
+                          onDoubleTap: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return CourseDetailPage(courseDetail: CourseDetailSamples.samples[index]);
+                                }
+                              )
+                            );
+                          },
+                          child: buildCourseCard(CourseSamples.samples[index]),
+                        );
+                        //return buildCourseCard(CourseSamples.samples[index]);
                       }
                     )
                   ),

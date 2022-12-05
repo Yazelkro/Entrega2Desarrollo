@@ -5,7 +5,6 @@
 import 'package:pruebita1/courseInfo.dart';
 
 import 'course.dart';
-import 'courseCreator.dart';
 
 
 class CourseSamples {
