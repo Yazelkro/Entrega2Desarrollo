@@ -1,4 +1,4 @@
-#Sat Dec 03 20:04:20 VET 2022
-base.0=/home/yazelnarath/Dev/DesarrolloProyecto2/pruebita1/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Wed Dec 07 15:13:43 VET 2022
+base.0=C\:\\Users\\ernes\\Documents\\GitHub\\Entrega2Desarrollo\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

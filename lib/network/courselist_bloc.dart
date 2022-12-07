@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:pruebita1/network/courselist_model.dart';
 import 'package:pruebita1/repository/curso_repository.dart';
@@ -10,13 +12,14 @@ part '../BLoC/courselist_state.dart';
 class CourselistBloc extends HydratedBloc<CourselistEvent, CourselistState> {
   final CourseRepository courseRepository;
 
-  CourselistBloc(this.courseRepository) : super(const CourselistLoading()) {
+  CourselistBloc(this.courseRepository) : super(CourselistLoading()) {
     on<GetCourses>((event, emit) => _onCourseLoading);
   }
 
   _onCourseLoading(CourselistLoading event, Emitter<int> emit) async* {
     try {
-      yield const CourselistLoading();
+      yield CourselistLoading();
+      log('b');
       final courselist = await courseRepository.fetchCursos();
       yield CourselistLoaded(courselist);
     } catch (e) {

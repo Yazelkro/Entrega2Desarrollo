@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:pruebita1/network/courselist_model.dart';
@@ -77,8 +79,11 @@ class CourseLoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('c');
     final courselistBloc = BlocProvider.of<CourselistBloc>(context);
+    log('d');
     courselistBloc.add(GetCourses(courselistBloc.courseRepository));
+    log('e');
     return const Center(child: CircularProgressIndicator());
   }
 }
