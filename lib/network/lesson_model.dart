@@ -1,57 +1,36 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'lesson_model.g.dart';
-
-@JsonSerializable()
-class APILessonQuery {
-  factory APILessonQuery.fromJson(Map<String, dynamic> json) =>   
-    _$APILessonQueryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$APILessonQueryToJson(this);
-
-  @JsonKey(name: 'q')
-  String query;
-  int from;
-  int to;
-  bool more;
-  int count;
-  List<APIHits> hits;
-
-  APILessonQuery ({
-    required this.query,
-    required this.from,
-    required this.to,
-    required this.more,
-    required this.count,
-    required this.hits,
-  });
+class Lessons {
+/*
+{
+  "name": "91882",
+  "descripcion": "Neque explicabo quo id.",
+  "id": "1",
+  "cursoId": "1"
 }
+*/
 
-@JsonSerializable()
-class APIHits {
-  APILesson lesson;
+  String? name;
+  String? descripcion;
+  int? id;
+  int? cursoId;
 
-  APIHits ({
-    required this.lesson
+  Lessons({
+    this.name,
+    this.descripcion,
+    this.id,
+    this.cursoId,
   });
-
-  factory APIHits.fromJson(Map<String, dynamic> json) =>
-    _$APIHitsFromJson(json);
-  
-  Map<String, dynamic> toJson() => _$APIHitsToJson(this);
-}
-
-@JsonSerializable()
-class APILesson {
-  String id;
-  String title;
-
-  APILesson ({
-    required this.id,
-    required this.title,
-  });
-
-  factory APILesson.fromJson(Map<String, dynamic> json) =>
-    _$APILessonFromJson(json);
-  Map<String, dynamic> toJson() => _$APILessonToJson(this);
+  Lessons.fromJson(Map<String, dynamic> json) {
+    name = json['name']?.toString();
+    descripcion = json['descripcion']?.toString();
+    id = json['id']?.toInt();
+    cursoId = json['cursoId']?.toInt();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['name'] = name;
+    data['descripcion'] = descripcion;
+    data['id'] = id;
+    data['cursoId'] = cursoId;
+    return data;
+  }
 }
