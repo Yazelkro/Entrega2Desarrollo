@@ -11,7 +11,7 @@ class CourseModel {
   String? title;
   String? photo;
   String? description;
-  int? id;
+  String? id;
 
   CourseModel({
     this.title,
@@ -23,7 +23,7 @@ class CourseModel {
     title = json['title']?.toString();
     photo = json['photo']?.toString();
     description = json['description']?.toString();
-    id = json['id']?.toInt();
+    id = json['id']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

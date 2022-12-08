@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:pruebita1/network/Lesson_model.dart';
+//import 'package:pruebita1/network/Lesson_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'lessonlist_model.g.dart';

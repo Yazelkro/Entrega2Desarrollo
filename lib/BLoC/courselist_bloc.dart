@@ -14,19 +14,16 @@ class CourselistBloc extends HydratedBloc<CourselistEvent, CourselistState> {
   final CourseRepository courseRepository;
 
   CourselistBloc(this.courseRepository) : super(CourselistLoading()) {
-    on<GetCourses>((event, emit) => _onCourseLoading);
-  }
-
-  _onCourseLoading(CourselistLoading event, Emitter<int> emit) async* {
-    try {
-      yield CourselistLoading();
-      log('b');
-      final courselist = await courseRepository.fetchCursos();
-      yield CourselistLoaded(courselist);
-    } catch (e) {
-      // print(e.toString());
-      yield CourselistError(e.toString());
-    }
+    on<GetCourses>((event, emit) async {
+      try {
+        emit(CourselistLoading());
+        final courselist = await courseRepository.fetchCursos();
+        emit(CourselistLoaded(courselist));
+      } catch (e) {
+        log(e.toString());
+        emit(CourselistError('Error al cargar los cursos'));
+      }
+    });
   }
 
   @override
