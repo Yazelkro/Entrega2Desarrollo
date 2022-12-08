@@ -1,13 +1,14 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pruebita1/network/courselist_model.dart';
+import 'package:pruebita1/network/models/courselist_model.dart';
 import 'package:pruebita1/repository/curso_repository.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 
-part '../BLoC/courselist_event.dart';
-part '../BLoC/courselist_state.dart';
+part 'courselist_event.dart';
+part 'courselist_state.dart';
 
 class CourselistBloc extends HydratedBloc<CourselistEvent, CourselistState> {
   final CourseRepository courseRepository;

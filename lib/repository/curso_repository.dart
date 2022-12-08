@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:pruebita1/network/course_model.dart';
-import 'package:pruebita1/network/courselist_model.dart';
+import 'package:pruebita1/network/models/course_model.dart';
+import 'package:pruebita1/network/models/courselist_model.dart';
 import 'package:http/http.dart' as http;
 
 class CourseRepository {
@@ -15,8 +15,8 @@ class CourseRepository {
       log('pidiendo');
       // List<dynamic> allGames = jsonDecode();
       List<dynamic> data = jsonDecode(response.body);
-      for (var course in data) {
-        final nuevoCurso = CourseModel.fromJson(course);
+      for (var curso in data) {
+        final nuevoCurso = CourseModel.fromJson(curso);
         courses.add(nuevoCurso);
       }
       Courselist allCourses = Courselist(allCourses: courses);

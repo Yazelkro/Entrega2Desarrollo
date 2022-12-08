@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import 'package:pruebita1/network/courselist_model.dart';
-import 'package:pruebita1/network/course_model.dart';
+import 'package:pruebita1/network/models/courselist_model.dart';
+import 'package:pruebita1/network/models/course_model.dart';
 import 'package:pruebita1/repository/curso_repository.dart';
-import 'package:pruebita1/network/courselist_bloc.dart';
+import 'package:pruebita1/BLoC/courselist_bloc.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,10 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: BlocBuilder<CourselistBloc, CourselistState>(
         builder: (context, state) {
           if (state is CourselistLoading) {
+            log('bbb');
             return const CourseLoadingScreen();
           } else if (state is CourselistLoaded) {
+            log('zzz');
             return CourseListWidget(courselist: state.courselist);
           } else if (state is CourselistError) {
+            log('aaa');
             return Center(child: Text(state.message));
           } else {
             return const Center(child: Text('Error'));

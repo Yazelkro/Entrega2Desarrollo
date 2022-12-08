@@ -7,7 +7,7 @@ part of 'courselist_model.dart';
 // **************************************************************************
 
 Courselist _$CourselistFromJson(Map<String, dynamic> json) => Courselist(
-      allCourses: json['allCourses'] as List<dynamic>,
+      allCourses: json['allCourses'] as List<CourseModel>,
     );
 
 Map<String, dynamic> _$CourselistToJson(Courselist instance) =>

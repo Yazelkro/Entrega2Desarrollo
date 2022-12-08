@@ -1,4 +1,4 @@
-part of '../network/courselist_bloc.dart';
+part of '../BLoC/courselist_bloc.dart';
 
 @immutable
 abstract class CourselistEvent {}
