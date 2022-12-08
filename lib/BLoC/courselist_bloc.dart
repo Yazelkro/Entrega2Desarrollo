@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:pruebita1/network/models/courselist_model.dart';
 import 'package:pruebita1/repository/curso_repository.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'courselist_event.dart';
 part 'courselist_state.dart';
@@ -13,7 +12,7 @@ part 'courselist_state.dart';
 class CourselistBloc extends HydratedBloc<CourselistEvent, CourselistState> {
   final CourseRepository courseRepository;
 
-  CourselistBloc(this.courseRepository) : super(CourselistLoading()) {
+  CourselistBloc(this.courseRepository) : super(CourselistInitial()) {
     on<GetCourses>((event, emit) async {
       try {
         emit(CourselistLoading());
@@ -29,9 +28,11 @@ class CourselistBloc extends HydratedBloc<CourselistEvent, CourselistState> {
   @override
   CourselistState? fromJson(Map<String, dynamic> json) {
     try {
+      log("aiuda");
       final courselist = Courselist.fromJson(json);
       return CourselistLoaded(courselist);
-    } catch (_) {
+    } catch (e) {
+      log(e.toString());
       return null;
     }
   }

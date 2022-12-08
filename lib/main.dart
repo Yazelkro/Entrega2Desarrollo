@@ -7,15 +7,19 @@ import 'package:pruebita1/network/models/courselist_model.dart';
 import 'package:pruebita1/network/models/course_model.dart';
 import 'package:pruebita1/repository/curso_repository.dart';
 import 'package:pruebita1/BLoC/courselist_bloc.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getTemporaryDirectory(),
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getTemporaryDirectory(),
   );
   runApp(const CoursesApp());
 }
@@ -26,50 +30,47 @@ class CoursesApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    HttpOverrides.global = MyHttpOverrides();
-    final ThemeData theme = ThemeData();
-    return MaterialApp(
-      title: 'Corsi',
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-            primary: Color.fromARGB(255, 57, 19, 160),
-            secondary: Color.fromARGB(255, 17, 17, 17)),
-      ),
-      home: BlocProvider(
-        create: (context) => CourselistBloc(CourseRepository()),
-        child: const MyHomePage(title: 'Corsi'),
-      ),
+    return BlocProvider(
+      create: (context) => CourselistBloc(CourseRepository()),
+      child: const Appview(title: 'Corsi'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
+class Appview extends StatelessWidget {
+  const Appview({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return BlocBuilder<CourselistBloc, CourselistState>(
+      builder: (context, state) {
+        return const MaterialApp(home: ListPage());
+      },
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class ListPage extends StatelessWidget {
+  const ListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Corsi'),
       ),
       body: BlocBuilder<CourselistBloc, CourselistState>(
         builder: (context, state) {
-          if (state is CourselistLoading) {
-            log('bbb');
-            return const CourseLoadingScreen();
+          log(state.toString());
+          if (state is CourselistLoading || state is CourselistInitial) {
+            final courselistBloc = BlocProvider.of<CourselistBloc>(context);
+            courselistBloc.add(GetCourses(courselistBloc.courseRepository));
+            return const Center(child: CircularProgressIndicator());
           } else if (state is CourselistLoaded) {
-            log('zzz');
             return CourseListWidget(courselist: state.courselist);
           } else if (state is CourselistError) {
-            log('aaa');
-            return Center(child: Text(state.message));
+            return Dialog(child: Text(state.message));
           } else {
             return const Center(child: Text('Error'));
           }
@@ -79,20 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CourseLoadingScreen extends StatelessWidget {
+/*class CourseLoadingScreen extends StatelessWidget {
   const CourseLoadingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    log('c');
     final courselistBloc = BlocProvider.of<CourselistBloc>(context);
-    log('d');
+
     courselistBloc.add(GetCourses(courselistBloc.courseRepository));
-    log('e');
+
     return const Center(child: CircularProgressIndicator());
   }
 }
-
+*/
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -118,14 +118,12 @@ class CourseListWidget extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 240, 255, 255),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 127, 172, 204)),
                 child: ListTile(
                   title: Text(course.title!),
                   subtitle: Text(course.description!),
-                  leading: Image(image: AssetImage(course.photo!)),
+                  //leading: Image(image: AssetImage(course.photo!)),
                   /*onTap: () {
                     Navigator.push(
                       context,
